@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+BUILD_DIR=$1
+VENDOR_DIR="$BUILD_DIR/vendor"
+
+SOURCE_DIR="$(dirname $0)/../compiled"
+tar -zxvf $SOURCE_DIR/gnuplot.tar.gz
+
+# Setup environment to build gnuplot
+export PKG_CONFIG_PATH="$BUILD_DIR"/.heroku/libgd/lib/pkgconfig
+export LDFLAGS="$LDFLAGS -L$BUILD_DIR/.heroku/libgd/lib"
+export CPPFLAGS="$CPPFLAGS -I$BUILD_DIR/.heroku/libgd/include"
+export PATH="$BUILD_DIR/.heroku/libgd/bin:$PATH"
+
+# Setup profile.d script to add gnuplot to path
+mkdir -p "$BUILD_DIR"/.profile.d
+(
+  echo 'PATH=/app/.heroku/gnuplot/bin:$PATH'
+) > "$BUILD_DIR"/.profile.d/gnuplot.sh
+
+echo "GnuPlot installed and added to path"
+echo
