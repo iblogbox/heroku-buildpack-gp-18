@@ -8,7 +8,7 @@ TARGET_DIR="$BUILD_DIR/.heroku"
 
 mkdir "$TARGET_DIR"
 cd "$TARGET_DIR"
-tar -zxvf "$SOURCE_DIR/gnuplot.tar.gz"
+tar -zxvf "$SOURCE_DIR/gnuplot_5.2.8.tar.gz"
 
 # Setup environment to build gnuplot
 export PKG_CONFIG_PATH="$BUILD_DIR"/.heroku/libgd/lib/pkgconfig
